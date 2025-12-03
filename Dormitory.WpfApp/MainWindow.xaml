@@ -1,0 +1,83 @@
+﻿<Window x:Class="Dormitory.WpfApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Управление общежитием (Вариант 16)" Height="600" Width="1000" WindowStartupLocation="CenterScreen">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="0,0,0,10">
+            <Button Name="BtnRefresh" Content="Обновить таблицу" Padding="10,5" Margin="0,0,10,0" Click="BtnRefresh_Click"/>
+            <Button Name="BtnReportFull" Content="Отчет (Все)" Padding="10,5" Margin="0,0,10,0" Click="BtnReportFull_Click"/>
+            <Button Name="BtnReportGroup" Content="Отчет (Группировка)" Padding="10,5" Margin="0,0,10,0" Click="BtnReportGroup_Click"/>
+        </StackPanel>
+
+        <DataGrid Name="DgStudents" Grid.Row="1" Grid.Column="0" AutoGenerateColumns="False" CanUserAddRows="False" SelectionMode="Single" SelectionChanged="DgStudents_SelectionChanged" Margin="0,0,10,0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding StudentCardID}" Width="50"/>
+                <DataGridTextColumn Header="ФИО" Binding="{Binding FullName}" Width="*"/>
+                <DataGridTextColumn Header="Факультет" Binding="{Binding FacultyName}" Width="150"/>
+                <DataGridTextColumn Header="Комната" Binding="{Binding RoomNumber}" Width="70"/>
+                <DataGridTextColumn Header="Группа" Binding="{Binding GroupNum}" Width="80"/>
+                <DataGridTextColumn Header="Куратор" Binding="{Binding CuratorName}" Width="150"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Border Grid.Row="1" Grid.Column="1" BorderBrush="Gray" BorderThickness="1" Padding="10">
+            <StackPanel>
+                <TextBlock Text="Редактирование / Добавление" FontWeight="Bold" Margin="0,0,0,10" HorizontalAlignment="Center"/>
+
+                <TextBlock Text="ФИО студента:"/>
+                <TextBox Name="TxtFullName" Margin="0,0,0,10"/>
+
+                <TextBlock Text="Факультет:"/>
+                <ComboBox Name="CmbFaculty" DisplayMemberPath="FacultyName" SelectedValuePath="FacultyID" Margin="0,0,0,10"/>
+
+                <TextBlock Text="Номер комнаты:"/>
+                <TextBox Name="TxtRoom" Margin="0,0,0,10"/>
+
+                <TextBlock Text="Группа:"/>
+                <TextBox Name="TxtGroup" Margin="0,0,0,10"/>
+
+                <TextBlock Text="Куратор:"/>
+                <ComboBox Name="CmbCurator" DisplayMemberPath="FullName" SelectedValuePath="CuratorID" Margin="0,0,0,20"/>
+
+                <Button Name="BtnAdd" Content="Добавить" Margin="0,0,0,5" Click="BtnAdd_Click"/>
+                <Button Name="BtnUpdate" Content="Сохранить изменения" Margin="0,0,0,5" Click="BtnUpdate_Click"/>
+                <Button Name="BtnDelete" Content="Удалить выбранное" Background="#FFCCCC" Click="BtnDelete_Click"/>
+            </StackPanel>
+        </Border>
+
+        <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" BorderBrush="Gray" BorderThickness="1" Margin="0,10,0,0" Padding="10">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <TextBlock Text="Фильтр:" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,10,0"/>
+
+                <TextBlock Text="Комната:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                <TextBox Name="TxtFilterRoom" Width="60" Margin="0,0,15,0"/>
+
+                <TextBlock Text="Факультет:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                <TextBox Name="TxtFilterFaculty" Width="100" Margin="0,0,15,0"/>
+
+                <TextBlock Text="Куратор:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                <TextBox Name="TxtFilterCurator" Width="100" Margin="0,0,15,0"/>
+
+                <Button Name="BtnApplyFilter" Content="Найти" Padding="15,2" Click="BtnApplyFilter_Click"/>
+
+                <TextBlock Text="Сортировка:" FontWeight="Bold" VerticalAlignment="Center" Margin="30,0,10,0"/>
+                <ComboBox Name="CmbSort" Width="120" SelectionChanged="CmbSort_SelectionChanged">
+                    <ComboBoxItem Content="Без сортировки" IsSelected="True"/>
+                    <ComboBoxItem Content="По ФИО"/>
+                    <ComboBoxItem Content="По Комнате"/>
+                    <ComboBoxItem Content="По Факультету"/>
+                </ComboBox>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

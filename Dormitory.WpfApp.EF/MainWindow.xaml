@@ -1,0 +1,153 @@
+﻿<Window x:Class="Dormitory.WpfApp.EF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <TabControl>
+            <TabItem Header="Студенты">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.ColumnSpan="2" Margin="0,0,0,10">
+                        <Button Name="BtnRefreshStud" Content="Обновить" Padding="10,5" Click="BtnRefreshStud_Click"/>
+                        <Button Name="BtnReport" Content="Отчеты (Word)" Padding="10,5" Margin="10,0,0,0" Click="BtnReport_Click"/>
+                    </StackPanel>
+
+                    <DataGrid Name="DgStudents" Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True" SelectionChanged="DgStudents_SelectionChanged">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Binding="{Binding StudentCardID}" Width="40"/>
+                            <DataGridTextColumn Header="ФИО" Binding="{Binding FullName}" Width="*"/>
+                            <DataGridTextColumn Header="Факультет" Binding="{Binding FacultyName}" Width="120"/>
+                            <DataGridTextColumn Header="Комната" Binding="{Binding RoomNumber}" Width="60"/>
+                            <DataGridTextColumn Header="Группа" Binding="{Binding GroupNum}" Width="60"/>
+                            <DataGridTextColumn Header="Куратор" Binding="{Binding CuratorName}" Width="120"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <StackPanel Grid.Row="1" Grid.Column="1" Margin="10,0,0,0">
+                        <TextBlock Text="Редактирование" FontWeight="Bold" Margin="0,0,0,10"/>
+                        <TextBox Name="TxtStudName" Tag="ФИО" Margin="0,0,0,5"/>
+                        <ComboBox Name="CmbStudFaculty" DisplayMemberPath="FacultyName" SelectedValuePath="FacultyID" Margin="0,0,0,5"/>
+                        <TextBox Name="TxtStudRoom" Tag="Комната" Margin="0,0,0,5"/>
+                        <TextBox Name="TxtStudGroup" Tag="Группа" Margin="0,0,0,5"/>
+                        <ComboBox Name="CmbStudCurator" DisplayMemberPath="FullName" SelectedValuePath="CuratorID" Margin="0,0,0,10"/>
+
+                        <Button Content="Добавить" Click="BtnAddStud_Click" Margin="0,0,0,5"/>
+                        <Button Content="Изменить" Click="BtnEditStud_Click" Margin="0,0,0,5"/>
+                        <Button Content="Удалить" Click="BtnDelStud_Click" Background="#FFDDDD"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="0,10,0,0">
+                        <TextBlock Text="Быстрый фильтр:" VerticalAlignment="Center" FontWeight="Bold"/>
+                        <TextBox Name="TxtFilterRoom" Width="60" Margin="10,0,0,0" ToolTip="Комната"/>
+                        <TextBox Name="TxtFilterFac" Width="100" Margin="5,0,0,0" ToolTip="Факультет"/>
+                        <TextBox Name="TxtFilterCur" Width="100" Margin="5,0,0,0" ToolTip="Куратор"/>
+                        <Button Content="Применить фильтр" Margin="10,0,0,0" Click="BtnFilter_Click"/>
+
+                        <TextBlock Text="Сортировка:" VerticalAlignment="Center" Margin="20,0,5,0" FontWeight="Bold"/>
+                        <ComboBox Name="CmbSort" Width="120" SelectionChanged="CmbSort_SelectionChanged">
+                            <ComboBoxItem Content="Без сортировки" IsSelected="True"/>
+                            <ComboBoxItem Content="По ФИО"/>
+                            <ComboBoxItem Content="По Комнате"/>
+                        </ComboBox>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Факультеты">
+                <Grid Margin="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="250"/>
+                    </Grid.ColumnDefinitions>
+
+                    <DataGrid Name="DgFaculties" AutoGenerateColumns="False" IsReadOnly="True" SelectionChanged="DgFaculties_SelectionChanged">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Binding="{Binding FacultyID}"/>
+                            <DataGridTextColumn Header="Название" Binding="{Binding FacultyName}" Width="*"/>
+                            <DataGridTextColumn Header="Декан" Binding="{Binding DeanName}"/>
+                            <DataGridTextColumn Header="Телефон" Binding="{Binding DeanPhone}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <StackPanel Grid.Column="1" Margin="10,0,0,0">
+                        <TextBlock Text="Управление факультетами" FontWeight="Bold" Margin="0,0,0,10"/>
+                        <TextBox Name="TxtFacName" Margin="0,0,0,5"/>
+                        <TextBox Name="TxtFacDean" Margin="0,0,0,5"/>
+                        <TextBox Name="TxtFacPhone" Margin="0,0,0,10"/>
+                        <Button Content="Добавить" Click="BtnAddFac_Click" Margin="0,0,0,5"/>
+                        <Button Content="Изменить" Click="BtnEditFac_Click" Margin="0,0,0,5"/>
+                        <Button Content="Удалить" Click="BtnDelFac_Click" Background="#FFDDDD"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Кураторы">
+                <Grid Margin="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="250"/>
+                    </Grid.ColumnDefinitions>
+
+                    <DataGrid Name="DgCurators" AutoGenerateColumns="False" IsReadOnly="True" SelectionChanged="DgCurators_SelectionChanged">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Binding="{Binding CuratorID}"/>
+                            <DataGridTextColumn Header="ФИО" Binding="{Binding FullName}" Width="*"/>
+                            <DataGridTextColumn Header="Адрес" Binding="{Binding Address}"/>
+                            <DataGridTextColumn Header="Телефон" Binding="{Binding Phone}"/>
+                            <DataGridTextColumn Header="Должность" Binding="{Binding Position}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <StackPanel Grid.Column="1" Margin="10,0,0,0">
+                        <TextBlock Text="Управление кураторами" FontWeight="Bold" Margin="0,0,0,10"/>
+                        <TextBox Name="TxtCurName" Margin="0,0,0,5"/>
+                        <TextBox Name="TxtCurAddr" Margin="0,0,0,5"/>
+                        <TextBox Name="TxtCurPhone" Margin="0,0,0,5"/>
+                        <TextBox Name="TxtCurPos" Margin="0,0,0,10"/>
+                        <Button Content="Добавить" Click="BtnAddCur_Click" Margin="0,0,0,5"/>
+                        <Button Content="Изменить" Click="BtnEditCur_Click" Margin="0,0,0,5"/>
+                        <Button Content="Удалить" Click="BtnDelCur_Click" Background="#FFDDDD"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Запросы">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Margin="0,0,0,10">
+                        <TextBlock Text="Выберите запрос из задания (Вариант 16):" FontWeight="Bold" Margin="0,0,0,5"/>
+                        <ComboBox Name="CmbQueryType" SelectionChanged="CmbQueryType_SelectionChanged">
+                            <ComboBoxItem Content="1. Студенты в заданной комнате" Tag="StudentsInRoom"/>
+                            <ComboBoxItem Content="2. Студенты по заданному куратору" Tag="StudentsByCurator"/>
+                            <ComboBoxItem Content="3. Комнаты факультетов + кол-во студентов" Tag="RoomStats"/>
+                            <ComboBoxItem Content="4. Кураторы факультета (со студентами и комнатами)" Tag="CuratorsByFaculty"/>
+                            <ComboBoxItem Content="5. Группирующий отчет (Факультеты + Студенты)" Tag="FacultySummary"/>
+                        </ComboBox>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,10">
+                        <TextBlock Text="Параметр (если нужен):" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                        <TextBox Name="TxtQueryParam" Width="200" ToolTip="Введите номер комнаты, имя куратора или факультет"/>
+                        <Button Content="Выполнить запрос" Margin="10,0,0,0" Padding="15,2" Click="BtnExecQuery_Click"/>
+                    </StackPanel>
+
+                    <DataGrid Name="DgQueryResults" Grid.Row="2" AutoGenerateColumns="True" IsReadOnly="True"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

@@ -18,6 +18,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DatabaseScripts", "DatabaseScripts", "{36D591C7-65C7-A0D1-1CBC-10CDE441BDC8}"
 	ProjectSection(SolutionItems) = preProject
 		Dormitory.WpfApp\CreateDB.sql = Dormitory.WpfApp\CreateDB.sql
+		Dormitory.WpfApp\CreateDormitoryDB.sql = Dormitory.WpfApp\CreateDormitoryDB.sql
 		CreateWarehouseDB.sql = CreateWarehouseDB.sql
 		Dormitory.Data\SQLQuery1.sql = Dormitory.Data\SQLQuery1.sql
 		Dormitory.Data\SQLQuery2.sql = Dormitory.Data\SQLQuery2.sql
@@ -26,6 +27,14 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dormitory.Data", "Dormitory.Data\Dormitory.Data.csproj", "{F29F38B6-3D9E-40A0-8635-DF761C3296FF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dormitory.WpfApp", "Dormitory.WpfApp\Dormitory.WpfApp.csproj", "{D36DD3BC-1E40-4815-974B-C073A744DC4C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lab6", "lab6", "{59ABF1D3-F848-426E-9086-22AA066F5A11}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lab7", "lab7", "{856E8DBF-69B5-46FA-9DC3-B49FF6F33868}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dormitory.Data.EF", "Dormitory.Data.EF\Dormitory.Data.EF.csproj", "{9A14715D-9302-4806-9837-66B8A71F828B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dormitory.WpfApp.EF", "Dormitory.WpfApp.EF\Dormitory.WpfApp.EF.csproj", "{79BC27EB-E0F2-4CC2-873F-12E992000D70}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -65,9 +74,23 @@ Global
 		{D36DD3BC-1E40-4815-974B-C073A744DC4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D36DD3BC-1E40-4815-974B-C073A744DC4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D36DD3BC-1E40-4815-974B-C073A744DC4C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A14715D-9302-4806-9837-66B8A71F828B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A14715D-9302-4806-9837-66B8A71F828B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A14715D-9302-4806-9837-66B8A71F828B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A14715D-9302-4806-9837-66B8A71F828B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79BC27EB-E0F2-4CC2-873F-12E992000D70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79BC27EB-E0F2-4CC2-873F-12E992000D70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79BC27EB-E0F2-4CC2-873F-12E992000D70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79BC27EB-E0F2-4CC2-873F-12E992000D70}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F29F38B6-3D9E-40A0-8635-DF761C3296FF} = {59ABF1D3-F848-426E-9086-22AA066F5A11}
+		{D36DD3BC-1E40-4815-974B-C073A744DC4C} = {59ABF1D3-F848-426E-9086-22AA066F5A11}
+		{9A14715D-9302-4806-9837-66B8A71F828B} = {856E8DBF-69B5-46FA-9DC3-B49FF6F33868}
+		{79BC27EB-E0F2-4CC2-873F-12E992000D70} = {856E8DBF-69B5-46FA-9DC3-B49FF6F33868}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4DEE25B0-CA75-453B-BD0A-FDCD87DDDE8F}

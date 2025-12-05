@@ -1,4 +1,4 @@
-﻿USE master;
+USE master;
 GO
 
 IF EXISTS (SELECT * FROM sys.databases WHERE name = 'DormitoryDB')
@@ -59,7 +59,6 @@ INSERT INTO Students (FullName, FacultyID, RoomNumber, GroupNum, CuratorID) VALU
 (N'Дмитриев Дмитрий', 1, 102, N'ИТ-22', 1);
 GO
 
--- Процедуры Студенты
 CREATE PROCEDURE sp_GetStudentReport AS
 BEGIN
     SELECT s.StudentCardID, s.FullName, f.FacultyName, s.RoomNumber, s.GroupNum, c.FullName AS CuratorName
@@ -94,7 +93,6 @@ BEGIN
 END;
 GO
 
--- Фильтр студентов
 CREATE PROCEDURE sp_FilterStudents
     @RoomNumber INT = NULL, @CuratorName NVARCHAR(100) = NULL, @FacultyName NVARCHAR(100) = NULL
 AS
@@ -109,7 +107,6 @@ BEGIN
 END;
 GO
 
--- Процедуры Факультеты
 CREATE PROCEDURE sp_GetAllFaculties AS
 BEGIN
     SELECT * FROM Faculties;
@@ -134,7 +131,6 @@ BEGIN
 END;
 GO
 
--- Процедуры Кураторы
 CREATE PROCEDURE sp_GetAllCurators AS
 BEGIN
     SELECT * FROM Curators;
@@ -159,7 +155,6 @@ BEGIN
 END;
 GO
 
--- Для отчетов
 CREATE PROCEDURE sp_GetFacultySummary AS
 BEGIN
     SELECT f.FacultyName, c.FullName AS CuratorName, COUNT(s.StudentCardID) AS StudentCount
@@ -169,5 +164,36 @@ BEGIN
     GROUP BY f.FacultyName, c.FullName
     HAVING c.FullName IS NOT NULL
     ORDER BY f.FacultyName, c.FullName;
+END;
+GO
+
+CREATE PROCEDURE sp_Query_RoomStats
+AS
+BEGIN
+    SELECT 
+        f.FacultyName AS [Факультет], 
+        s.RoomNumber AS [Комната], 
+        COUNT(s.StudentCardID) AS [Количество студентов]
+    FROM Students s
+    JOIN Faculties f ON s.FacultyID = f.FacultyID
+    GROUP BY f.FacultyName, s.RoomNumber
+    ORDER BY f.FacultyName, s.RoomNumber;
+END;
+GO
+
+CREATE PROCEDURE sp_Query_CuratorsByFaculty
+    @FacultyName NVARCHAR(100)
+AS
+BEGIN
+    SELECT 
+        f.FacultyName AS [Факультет],
+        c.FullName AS [Куратор],
+        s.FullName AS [Студент],
+        s.RoomNumber AS [Комната]
+    FROM Students s
+    JOIN Faculties f ON s.FacultyID = f.FacultyID
+    JOIN Curators c ON s.CuratorID = c.CuratorID
+    WHERE f.FacultyName LIKE N'%' + @FacultyName + N'%'
+    ORDER BY c.FullName, s.FullName;
 END;
 GO

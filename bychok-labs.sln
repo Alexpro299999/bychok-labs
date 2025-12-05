@@ -19,6 +19,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DatabaseScripts", "Database
 	ProjectSection(SolutionItems) = preProject
 		Dormitory.WpfApp\CreateDB.sql = Dormitory.WpfApp\CreateDB.sql
 		CreateWarehouseDB.sql = CreateWarehouseDB.sql
+		Dormitory.Data\SQLQuery1.sql = Dormitory.Data\SQLQuery1.sql
+		Dormitory.Data\SQLQuery2.sql = Dormitory.Data\SQLQuery2.sql
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dormitory.Data", "Dormitory.Data\Dormitory.Data.csproj", "{F29F38B6-3D9E-40A0-8635-DF761C3296FF}"

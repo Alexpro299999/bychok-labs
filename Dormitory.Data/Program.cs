@@ -22,7 +22,7 @@ namespace Dormitory.ConsoleApp
 
                 Console.WriteLine("\nМеню:");
                 Console.WriteLine("1. Заселить студента (Добавить)");
-                Console.WriteLine("2. Изменить данные (Комната/Группа)");
+                Console.WriteLine("2. Изменить данные студента (Полное редактирование)");
                 Console.WriteLine("3. Выселить студента (Удалить)");
                 Console.WriteLine("4. Поиск и фильтрация");
                 Console.WriteLine("5. Сортировка");
@@ -112,11 +112,26 @@ namespace Dormitory.ConsoleApp
             try
             {
                 int id = GetValidIntInput("\nВведите ID студента для изменения: ");
-                int newRoom = GetValidIntInput("Новый номер комнаты: ");
-                Console.Write("Новая группа: ");
-                string newGroup = Console.ReadLine();
 
-                _repository.UpdateStudent(id, newRoom, newGroup);
+                Console.Write("Новое ФИО: ");
+                string fullName = Console.ReadLine();
+
+                var faculties = _repository.GetAllFaculties();
+                Console.WriteLine("\nВыберите новый факультет:");
+                faculties.ForEach(f => Console.WriteLine($"  {f.FacultyID}. {f.FacultyName}"));
+                int facultyId = GetValidIntInput("ID факультета: ");
+
+                int room = GetValidIntInput("Новый номер комнаты: ");
+
+                Console.Write("Новая группа: ");
+                string group = Console.ReadLine();
+
+                var curators = _repository.GetAllCurators();
+                Console.WriteLine("\nВыберите нового куратора:");
+                curators.ForEach(c => Console.WriteLine($"  {c.CuratorID}. {c.FullName}"));
+                int curatorId = GetValidIntInput("ID куратора: ");
+
+                _repository.UpdateStudent(id, fullName, facultyId, room, group, curatorId);
                 Console.WriteLine("Данные обновлены!");
             }
             catch (Exception ex)

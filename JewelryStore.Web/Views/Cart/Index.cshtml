@@ -1,0 +1,30 @@
+﻿@model JewelryStore.Web.Models.Cart
+
+<h2>Корзина</h2>
+<table class="table">
+    <thead>
+        <tr><th>Товар</th><th>Кол-во</th><th>Цена</th><th>Сумма</th><th></th></tr>
+    </thead>
+    <tbody>
+        @foreach (var line in Model.Lines)
+        {
+            <tr>
+                <td>@line.Product.Name</td>
+                <td>@line.Quantity</td>
+                <td>@line.Product.Price</td>
+                <td>@(line.Quantity* line.Product.Price)</td>
+                <td><a asp-action="RemoveFromCart" asp-route-productId="@line.Product.Id" class="btn btn-danger btn-sm">X</a></td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3" class="text-right">Итого:</td>
+            <td>@Model.ComputeTotalValue()</td>
+        </tr>
+    </tfoot>
+</table>
+<div class="text-center">
+    <a href="/" class="btn btn-secondary">Продолжить покупки</a>
+    <a asp-controller="Order" asp-action="Checkout" class="btn btn-primary">Оформить заказ</a>
+</div>

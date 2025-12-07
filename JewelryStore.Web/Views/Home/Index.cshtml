@@ -1,0 +1,42 @@
+﻿@model IEnumerable<JewelryStore.Domain.Models.Product>
+
+<div class="row mb-3">
+    <form method="get" class="form-inline">
+        <input name="search" class="form-control mr-2" placeholder="Поиск..." value="@ViewBag.Search" />
+        <input name="category" class="form-control mr-2" placeholder="Категория..." value="@ViewBag.CurrentCategory" />
+        <button type="submit" class="btn btn-primary">Найти</button>
+    </form>
+</div>
+
+<div class="row">
+    @foreach (var p in Model)
+    {
+        <div class="col-md-3 mb-4">
+            <div class="card h-100">
+                <img src="@p.ImageUrl" class="card-img-top" alt="@p.Name" style="height:200px; object-fit:cover;">
+                <div class="card-body">
+                    <h5 class="card-title">@p.Name</h5>
+                    <p class="card-text">@p.Price руб.</p>
+                </div>
+                <div class="card-footer">
+                    <a asp-action="Details" asp-route-id="@p.Id" class="btn btn-info btn-sm">Детали</a>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <a asp-controller="Cart" asp-action="AddToCart" asp-route-productId="@p.Id" asp-route-returnUrl="@Context.Request.Path" class="btn btn-success btn-sm">В корзину</a>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<nav>
+    <ul class="pagination">
+        @for (int i = 1; i <= ViewBag.TotalPages; i++)
+        {
+            <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                <a class="page-link" asp-action="Index" asp-route-page="@i" asp-route-search="@ViewBag.Search" asp-route-category="@ViewBag.CurrentCategory">@i</a>
+            </li>
+        }
+    </ul>
+</nav>

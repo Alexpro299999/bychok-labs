@@ -1,0 +1,51 @@
+﻿@model IEnumerable<JewelryStore.Domain.Models.Order>
+
+<h2>Все заказы</h2>
+<a asp-action="Index" class="btn btn-secondary mb-3">Назад к товарам</a>
+
+<table class="table table-bordered">
+    <thead class="thead-light">
+        <tr>
+            <th>ID</th>
+            <th>Клиент</th>
+            <th>Детали заказа</th>
+            <th>Текущий статус</th>
+            <th>Изменить статус</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Model)
+        {
+            <tr>
+                <td>@order.Id</td>
+                <td>
+                    <strong>@order.ContactName</strong><br />
+                    @order.Phone<br />
+                    @order.Address
+                </td>
+                <td>
+                    <ul>
+                        @foreach (var item in order.OrderItems)
+                        {
+                            <li>@item.Product.Name - @item.Quantity шт.</li>
+                        }
+                    </ul>
+                    <strong>Итого: @order.OrderItems.Sum(i => i.Price * i.Quantity)</strong>
+                </td>
+                <td>@order.Status</td>
+                <td>
+                    <form asp-action="UpdateStatus" method="post" class="form-inline">
+                        <input type="hidden" name="orderId" value="@order.Id" />
+                        <select name="status" class="form-control form-control-sm mr-2">
+                            <option value="Принят">Принят</option>
+                            <option value="Сформирован">Сформирован</option>
+                            <option value="Готов к выдаче">Готов к выдаче</option>
+                            <option value="Выполнен">Выполнен</option>
+                        </select>
+                        <button type="submit" class="btn btn-primary btn-sm">OK</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

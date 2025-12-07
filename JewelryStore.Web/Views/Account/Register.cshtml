@@ -1,0 +1,23 @@
+﻿@model JewelryStore.Web.Models.RegisterViewModel
+
+<h2>Регистрация нового пользователя</h2>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Register" method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label>Email</label>
+                <input asp-for="Email" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>Пароль</label>
+                <input asp-for="Password" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>Подтвердите пароль</label>
+                <input asp-for="ConfirmPassword" class="form-control" />
+            </div>
+            <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+        </form>
+    </div>
+</div>

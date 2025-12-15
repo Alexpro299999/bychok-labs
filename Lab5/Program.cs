@@ -4,20 +4,18 @@ using System.Linq;
 
 namespace Lab5
 {
-    // Класс 1: Продукт
     public class Product
     {
         public string Name { get; set; }
-        public decimal Price { get; set; } // Числовое поле
-        public string ManufacturerName { get; set; } // Ключ для связи
+        public decimal Price { get; set; } 
+        public string ManufacturerName { get; set; } 
 
         public override string ToString() => $"{Name} ({ManufacturerName}) - {Price:C}";
     }
 
-    // Класс 2: Производитель
     public class Manufacturer
     {
-        public string Name { get; set; } // Ключ для связи
+        public string Name { get; set; } 
         public string Country { get; set; }
         public int YearFounded { get; set; }
 
@@ -27,7 +25,7 @@ namespace Lab5
 
     class Program
     {
-        // Вспомогательный метод для красивого вывода коллекций
+        //для красивого вывода коллекций
         static void PrintCollection<T>(string title, IEnumerable<T> collection)
         {
             Console.WriteLine($"--- {title} ---");
@@ -40,8 +38,6 @@ namespace Lab5
 
         static void Main(string[] args)
         {
-            // --- ИСХОДНЫЕ ДАННЫЕ ---
-            // Создаем 2 набора классов
             List<Manufacturer> manufacturers = new List<Manufacturer>
             {
                 new Manufacturer { Name = "Apple", Country = "США", YearFounded = 1976 },
@@ -66,7 +62,6 @@ namespace Lab5
             PrintCollection("Исходный список производителей:", manufacturers);
             PrintCollection("Исходный список продуктов:", products);
 
-            // --- ВЫПОЛНЕНИЕ ЗАДАНИЙ ---
 
             // 1. Фильтрация по одному критерию (Метод расширения)
             var cheapProducts = products.Where(p => p.Price < 200);

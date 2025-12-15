@@ -20,13 +20,12 @@ namespace Lab4
         /// <returns>Список найденных слов.</returns>
         static List<string> FindOddLengthPalindromes(string inputText)
         {
-            // Используем Regex для разделения текста на слова, включая дефисы
             var words = Regex.Split(inputText.ToLower(), @"\W+").Where(w => !string.IsNullOrEmpty(w));
             var palindromes = new List<string>();
 
             foreach (var word in words)
             {
-                if (word.Length % 2 == 0) continue; // Пропускаем слова четной длины
+                if (word.Length % 2 == 0) continue; 
 
                 string reversedWord = new string(word.Reverse().ToArray());
                 if (word == reversedWord)
